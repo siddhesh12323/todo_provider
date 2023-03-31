@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_provider/models/task.dart';
 import 'package:todo_provider/screens/home.dart';
 
 void main() {
@@ -12,14 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-        // MultiProvider(
-        // providers: [
-        //   ChangeNotifierProvider(create: (context) => HomePage())
-        // ],
-        // child:
+        MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => TaskData())
+        ],
+        child:
         MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: HomePage(),)
     );
     // );
   }
