@@ -79,8 +79,7 @@ class AddTask extends StatelessWidget {
                                       ? task!.taskColor = color
                                       : Provider.of<TaskData>(context,
                                               listen: false)
-                                          .listTask[recievedIndex!]
-                                          .taskColor = color;
+                                          .setColor(recievedIndex!, color, true);
                                   // recievedIndex == null ?
                                   // value.a
                                 },
@@ -133,11 +132,13 @@ class AddTask extends StatelessWidget {
                                             onTap: () {
                                               // task!.taskFont = fontList[index];
                                               recievedIndex == null
-                                      ? task!.taskFont = fontList[index]
-                                      : Provider.of<TaskData>(context,
-                                              listen: false)
-                                          .listTask[recievedIndex!]
-                                          .taskFont = fontList[index];
+                                                  ? task!.taskFont =
+                                                      fontList[index]
+                                                  : Provider.of<TaskData>(
+                                                          context,
+                                                          listen: false)
+                                                      .setFont(recievedIndex!,
+                                                          fontList[index], true);
                                             },
                                           ),
                                         );
@@ -158,22 +159,26 @@ class AddTask extends StatelessWidget {
                 //* Color of text chosen from container
                 color: recievedIndex == null
                     ? (task.taskColor ?? Colors.amber)
-                    : context
-                        .watch<TaskData>()
-                        .listTask[recievedIndex!]
-                        .taskColor,
+                    : (context
+                            .watch<TaskData>()
+                            .listTask[recievedIndex!]
+                            .taskColor ??
+                        Colors.amber),
                 height: 50,
                 width: double.maxFinite,
                 child: TextField(
-                  style: TextStyle(fontFamily: 
-                  recievedIndex == null ? task.taskFont
-                  : context.watch<TaskData>().listTask[recievedIndex!].taskFont),
+                  style: TextStyle(
+                      fontFamily: recievedIndex == null
+                          ? task.taskFont
+                          : context
+                              .watch<TaskData>()
+                              .listTask[recievedIndex!]
+                              .taskFont),
                   onChanged: (value) {
                     (recievedIndex == null)
                         ? (task?.taskTitle = value)
                         : Provider.of<TaskData>(context, listen: false)
-                            .listTask[recievedIndex!]
-                            .taskTitle = value;
+                            .setTitle(recievedIndex!, value, nameController, true);
                   },
                   controller: nameController
                     ..text = (recievedIndex == null)
@@ -197,16 +202,21 @@ class AddTask extends StatelessWidget {
                 //* Color of text chosen from container
                 color: recievedIndex == null
                     ? (task.taskColor ?? Colors.amber)
-                    : context
-                        .watch<TaskData>()
-                        .listTask[recievedIndex!]
-                        .taskColor,
+                    : (context
+                            .watch<TaskData>()
+                            .listTask[recievedIndex!]
+                            .taskColor ??
+                        Colors.amber),
                 height: 420,
                 width: double.maxFinite,
                 child: TextField(
-                  style: TextStyle(fontFamily: 
-                  recievedIndex == null ? task.taskFont
-                  : context.watch<TaskData>().listTask[recievedIndex!].taskFont),
+                  style: TextStyle(
+                      fontFamily: recievedIndex == null
+                          ? task.taskFont
+                          : context
+                              .watch<TaskData>()
+                              .listTask[recievedIndex!]
+                              .taskFont),
                   controller: descriptionController
                     ..text = (recievedIndex == null)
                         ? ''
@@ -218,8 +228,7 @@ class AddTask extends StatelessWidget {
                     (recievedIndex == null)
                         ? (task?.taskDescription = value)
                         : Provider.of<TaskData>(context, listen: false)
-                            .listTask[recievedIndex!]
-                            .taskDescription = value;
+                            .setDescription(recievedIndex!, value, descriptionController,true);
                   },
                   keyboardType: TextInputType.multiline,
                   expands: false,
@@ -241,6 +250,7 @@ class AddTask extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
                     child: ElevatedButton(
                         onPressed: () {
+                          // recievedIndex == null ? task = null :
                           task = null;
                           Navigator.pop(context);
                         },

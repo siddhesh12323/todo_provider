@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                             height: 150,
                             width: double.maxFinite,
                             decoration: BoxDecoration(
-                                color: context.watch<TaskData>().listTask[index].taskColor,
+                                color: context.watch<TaskData>().listTask[index].taskColor ?? Colors.amber,
                                 boxShadow: const [
                                   BoxShadow(
                                       color: Color.fromARGB(255, 102, 99, 99),
