@@ -28,20 +28,22 @@ class AddTask extends StatelessWidget {
     task.isCompleted = false;
     task.taskColor = null;
     return Scaffold(
-      // Background Color for Scaffold
+      //* Background Color for Scaffold
       backgroundColor: Color.fromARGB(255, 196, 92, 214),
       appBar: AppBar(
         title: const Text('Add Task'),
       ),
+      //* Page Body
       body: SingleChildScrollView(
         child: Column(
           children: [
+            //* Circular Container and Font Picker
             Padding(
               padding: EdgeInsets.fromLTRB(8, 16, 8, 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  // Choose Color
+                  //* Choose Color OR Circular Container
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 11, 0),
                     child: GestureDetector(
@@ -49,7 +51,7 @@ class AddTask extends StatelessWidget {
                         height: 40,
                         width: 40,
                         decoration: BoxDecoration(
-                          // Circle Container The Note's Color
+                          //* Container's color
                           color: recievedIndex == null
                               ? Colors.amber
                               : (context
@@ -62,7 +64,7 @@ class AddTask extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      // Show Color Picker
+                      //* Show Color Picker
                       onTap: () {
                         showDialog(
                           context: context,
@@ -95,7 +97,7 @@ class AddTask extends StatelessWidget {
                       },
                     ),
                   ),
-                  // Choose Font
+                  //* Choose Font
                   Padding(
                     padding: const EdgeInsets.fromLTRB(11, 0, 10, 0),
                     child: GestureDetector(
@@ -104,13 +106,14 @@ class AddTask extends StatelessWidget {
                         'A',
                         style: TextStyle(fontSize: 25),
                       ),
-                      // Show Font List
+                      //* Show Font List
                       onTap: () {
                         showDialog(
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                  title: Text('Select Font'),
+                                  title: const Text('Select Font'),
+                                  // ignore: sized_box_for_whitespace
                                   content: Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.8,
@@ -128,7 +131,13 @@ class AddTask extends StatelessWidget {
                                                   fontFamily: fontList[index]),
                                             ),
                                             onTap: () {
-                                              task!.taskFont = fontList[index];
+                                              // task!.taskFont = fontList[index];
+                                              recievedIndex == null
+                                      ? task!.taskFont = fontList[index]
+                                      : Provider.of<TaskData>(context,
+                                              listen: false)
+                                          .listTask[recievedIndex!]
+                                          .taskFont = fontList[index];
                                             },
                                           ),
                                         );
@@ -142,11 +151,11 @@ class AddTask extends StatelessWidget {
                 ],
               ),
             ),
-            // Enter Title
+            //* Enter Title
             Padding(
               padding: const EdgeInsets.all(8),
               child: Container(
-                // Color of text chosen from container
+                //* Color of text chosen from container
                 color: recievedIndex == null
                     ? (task.taskColor ?? Colors.amber)
                     : context
@@ -156,6 +165,9 @@ class AddTask extends StatelessWidget {
                 height: 50,
                 width: double.maxFinite,
                 child: TextField(
+                  style: TextStyle(fontFamily: 
+                  recievedIndex == null ? task.taskFont
+                  : context.watch<TaskData>().listTask[recievedIndex!].taskFont),
                   onChanged: (value) {
                     (recievedIndex == null)
                         ? (task?.taskTitle = value)
@@ -178,11 +190,11 @@ class AddTask extends StatelessWidget {
                 ),
               ),
             ),
-            // Enter Task Description
+            //* Enter Task Description
             Padding(
               padding: const EdgeInsets.all(8),
               child: Container(
-                // Color of text chosen from container
+                //* Color of text chosen from container
                 color: recievedIndex == null
                     ? (task.taskColor ?? Colors.amber)
                     : context
@@ -192,6 +204,9 @@ class AddTask extends StatelessWidget {
                 height: 420,
                 width: double.maxFinite,
                 child: TextField(
+                  style: TextStyle(fontFamily: 
+                  recievedIndex == null ? task.taskFont
+                  : context.watch<TaskData>().listTask[recievedIndex!].taskFont),
                   controller: descriptionController
                     ..text = (recievedIndex == null)
                         ? ''
@@ -216,7 +231,7 @@ class AddTask extends StatelessWidget {
                 ),
               ),
             ),
-            // Cancel And add things
+            //* Cancel And Add Current Task
             Padding(
               padding: const EdgeInsets.all(8),
               child: Row(

@@ -32,10 +32,10 @@ class TaskData extends ChangeNotifier {
   //   // notifyListeners();
   // }
 
-  setColor(int index, Color value) {
-    listTask[index].taskColor = value;
-    notifyListeners();
-  }
+  // setColor(int index, Color value) {
+  //   listTask[index].taskColor = value;
+  //   notifyListeners();
+  // }
 
   toggle(int index, bool? value) {
     listTask[index].isCompleted = value;

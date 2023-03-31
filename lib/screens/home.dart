@@ -4,20 +4,22 @@ import 'package:todo_provider/models/task.dart';
 import 'package:todo_provider/screens/add_task.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
   final snackBar = const SnackBar(content: Text('Task Deleted!'));
   @override
   Widget build(BuildContext context) {
     int? sendIndex;
     return Scaffold(
       appBar: AppBar(
-        title: Text('ToDo App'),
+        title: const Text('ToDo App'),
       ),
       // Theme: Background Color
       backgroundColor: Color.fromARGB(255, 196, 92, 214),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: 
+        [
+          // Welcome Message
           const Padding(
             padding: EdgeInsets.all(8),
             // Name of the user
@@ -27,22 +29,27 @@ class HomePage extends StatelessWidget {
               style: TextStyle(fontSize: 38),
             ),
           ),
+          // List of tasks
           Expanded(
             child: context.watch<TaskData>().listTask.isEmpty
-                ? const Padding(
+                ? 
+                // If there are no tasks 
+                const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
                       'Tap + to add a new task',
                       style: TextStyle(fontSize: 18),
                     ),
                   )
-                : ListView.builder(
+                : 
+                // Else show tasks in list
+                ListView.builder(
                     itemCount: context.watch<TaskData>().listTask.length,
-                    // tasklist.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
+                          // On single press take user to the add list page
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -50,12 +57,15 @@ class HomePage extends StatelessWidget {
                                     builder: (context) =>
                                         AddTask(recievedIndex: index)));
                           },
+                          // On Long Press Show Popup menu
                           onLongPress: () {
                             myAsyncFunction(context, index);
                           },
+                          // Task Card
                           child: Container(
-                            // elevation: 5,
+                            // Card Decoration
                             height: 150,
+                            width: double.maxFinite,
                             decoration: BoxDecoration(
                                 color: context.watch<TaskData>().listTask[index].taskColor,
                                 boxShadow: const [
@@ -65,25 +75,32 @@ class HomePage extends StatelessWidget {
                                       blurRadius: 10,
                                       offset: Offset(0, 5))
                                 ]),
-                            width: double.maxFinite,
+                            // Contents of Card (Task Name, Description)                            
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                // Task Name
                                 Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(8, 8, 0, 8),
                                   child: Text(context
                                       .watch<TaskData>()
                                       .listTask[index]
-                                      .taskTitle!),
+                                      .taskTitle!, style: 
+                                      TextStyle(fontSize: 20,fontFamily: 
+                                      context.watch<TaskData>().listTask[index].taskFont),),
                                 ),
+                                // Task Description
                                 Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(8, 8, 0, 8),
                                   child: Text(context
                                       .watch<TaskData>()
                                       .listTask[index]
-                                      .taskDescription!),
+                                      .taskDescription!,
+                                      style: 
+                                      TextStyle(fontFamily: 
+                                      context.watch<TaskData>().listTask[index].taskFont),),
                                 ),
                               ],
                             ),
