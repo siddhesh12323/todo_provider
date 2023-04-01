@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+// import 'package:flutter/scheduler.dart';
 import 'package:todo_provider/screens/add_task.dart';
 
 class Task {
@@ -15,6 +15,16 @@ class Task {
       this.isCompleted,
       this.taskFont,
       this.taskColor});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': taskTitle,
+      'description': taskDescription,
+      'isCompleted': isCompleted,
+      'font': taskFont,
+      'color': taskColor,
+    };
+  }
 }
 
 class TaskData extends ChangeNotifier {
