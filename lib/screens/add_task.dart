@@ -101,7 +101,7 @@ class AddTask extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(11, 0, 10, 0),
                     child: GestureDetector(
                       // Font for Note
-                      child: Text(
+                      child: const Text(
                         'A',
                         style: TextStyle(fontSize: 25),
                       ),

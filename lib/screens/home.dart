@@ -86,7 +86,9 @@ class HomePage extends StatelessWidget {
                                   child: Text(context
                                       .watch<TaskData>()
                                       .listTask[index]
-                                      .taskTitle!, style: 
+                                      .taskTitle!,
+                                      overflow: TextOverflow.ellipsis, 
+                                      style: 
                                       TextStyle(fontSize: 20,fontFamily: 
                                       context.watch<TaskData>().listTask[index].taskFont),),
                                 ),
@@ -94,13 +96,18 @@ class HomePage extends StatelessWidget {
                                 Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(8, 8, 0, 8),
-                                  child: Text(context
-                                      .watch<TaskData>()
-                                      .listTask[index]
-                                      .taskDescription!,
-                                      style: 
-                                      TextStyle(fontFamily: 
-                                      context.watch<TaskData>().listTask[index].taskFont),),
+                                  child: 
+                                  // OverflowBox( child: 
+                                    Text(context
+                                        .watch<TaskData>()
+                                        .listTask[index]
+                                        .taskDescription!,
+                                        // maxLines: 4,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: 
+                                        TextStyle(fontFamily: 
+                                        context.watch<TaskData>().listTask[index].taskFont),),
+                                  // ),
                                 ),
                               ],
                             ),
@@ -128,7 +135,7 @@ class HomePage extends StatelessWidget {
   Future<void> myAsyncFunction(BuildContext context, int index) async {
     var result = await showMenu(
       context: context,
-      position: const RelativeRect.fromLTRB(0, 0, 0, 100),
+      position: const RelativeRect.fromLTRB(0, 100, 50, 0),
       items: <PopupMenuEntry>[
         PopupMenuItem(
           value: 1,
