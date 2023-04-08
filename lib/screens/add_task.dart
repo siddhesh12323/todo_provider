@@ -19,6 +19,25 @@ class AddTask extends StatelessWidget {
   int? recievedIndex;
   final snackBar = const SnackBar(
       content: Text('Task Name or Description cannot be empty!'));
+
+  void showSelectedFontSnackBar(BuildContext context, int index) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('${fontList[index]} selected!'),
+        duration: const Duration(milliseconds: 500),
+      ),
+    );
+  }
+
+  void showSelectedColorSnackBar(BuildContext context, String chosenColor) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('$chosenColor chosen!'),
+        duration: const Duration(milliseconds: 500),
+      ),
+    );
+  }
+
   AddTask({super.key, required this.recievedIndex});
   @override
   Widget build(BuildContext context) {
@@ -79,7 +98,10 @@ class AddTask extends StatelessWidget {
                                       ? task!.taskColor = color
                                       : Provider.of<TaskData>(context,
                                               listen: false)
-                                          .setColor(recievedIndex!, color, true);
+                                          .setColor(
+                                              recievedIndex!, color, true);
+                                  showSelectedColorSnackBar(
+                                      context, color.toString());
                                   // recievedIndex == null ?
                                   // value.a
                                 },
@@ -137,8 +159,12 @@ class AddTask extends StatelessWidget {
                                                   : Provider.of<TaskData>(
                                                           context,
                                                           listen: false)
-                                                      .setFont(recievedIndex!,
-                                                          fontList[index], true);
+                                                      .setFont(
+                                                          recievedIndex!,
+                                                          fontList[index],
+                                                          true);
+                                              showSelectedFontSnackBar(
+                                                  context, index);
                                             },
                                           ),
                                         );
@@ -178,7 +204,8 @@ class AddTask extends StatelessWidget {
                     (recievedIndex == null)
                         ? (task?.taskTitle = value)
                         : Provider.of<TaskData>(context, listen: false)
-                            .setTitle(recievedIndex!, value, nameController, true);
+                            .setTitle(
+                                recievedIndex!, value, nameController, true);
                   },
                   controller: nameController
                     ..text = (recievedIndex == null)
@@ -228,7 +255,8 @@ class AddTask extends StatelessWidget {
                     (recievedIndex == null)
                         ? (task?.taskDescription = value)
                         : Provider.of<TaskData>(context, listen: false)
-                            .setDescription(recievedIndex!, value, descriptionController,true);
+                            .setDescription(recievedIndex!, value,
+                                descriptionController, true);
                   },
                   keyboardType: TextInputType.multiline,
                   expands: false,
